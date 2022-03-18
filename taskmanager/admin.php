@@ -13,7 +13,11 @@ if($perm != 1)
 
 if(!isset($_SESSION['agent_username']))
 {
-  header("Location: login.php");
+ ?>
+  		<script type="text/javascript">
+    		window.location.href = "login.php";
+			</script>
+<?php 
   exit;
 }
 			
@@ -31,31 +35,48 @@ if(isset($_POST['update_btn'])){
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>ADMIN</title>
 	<style>
-table, th, td {
-  border: 20px solid white;
+		.button {
+  background-color: dodgerblue;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+table{
+   margin-left: auto;
+  margin-right: auto;
+  width: 70%;
   border-collapse: collapse;
 }
-table.center {
-  margin-left: auto; 
-  margin-right: auto;
+th{
+ 	background-color: #D6EEEE;
+}
+ th, td {
+ 	border-style:solid;
+  border-color: #96D4D4;
 }
 </style>
 </head>
 <body>
 <form action="editagents.php" method="post">
-<table class="center">
+<table>
 		<div class="alert alert-success">
-			<h2 style="text-align:center; ">List of agents</h2>
+			<h2 style="text-align:center; ">Списък работници</h2>
 		</div>
 		<thead>
-			<tr>
-				<th style="text-align:center; color:dodgerblue;">Agent number</th>
-				<th style="text-align:center; color:dodgerblue;">Agent name</th>
-				<th style="text-align:center; color:dodgerblue;">Agent username</th>
-				<th style="text-align:center; color:dodgerblue;">Agent email</th>
-				<th style="text-align:center; color:dodgerblue;">Agent permission</th>
+			<tr style="height:50px">
+				<th style="text-align:center;">Номер на работник</th>
+				<th style="text-align:center;">Име и фамилия</th>
+				<th style="text-align:center;">Потребителско име</th>
+				<th style="text-align:center;">Имейл</th>
+				<th style="text-align:center;">Достъп</th>
 				<th><button id = "update_btn" class="btn brand z-deth-0"  name="submit_mult" type="submit">
-		Update Data
+		Обнови данни
 	</button></th>
 			</tr>
 		</thead>
@@ -66,7 +87,7 @@ table.center {
 		while($row=mysqli_fetch_array($query)){
 		$id_agent=$row['id_agent'];
 		?>
-			<tr>
+			<tr style="height:30px">
 				<td style="text-align:center; "><?php echo $row['id_agent'] ?></td>
 				<td style="text-align:center; "><?php echo $row['agent_name'] ?></td>
 				<td style="text-align:center; "><?php echo $row['agent_username'] ?></td>
@@ -83,8 +104,6 @@ table.center {
 	</table>
 	
 	</form>
+
 </body>
-	<?php
-		include ('view/footer.php');	
-	?>
 </html>

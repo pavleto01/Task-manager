@@ -4,7 +4,11 @@ include ('view/header.php');
 
 if(!isset($_SESSION['agent_username']))
 {
-  header("Location: login.php");
+  ?>
+  		<script type="text/javascript">
+    		window.location.href = "login.php";
+			</script>
+<?php
   exit;
 }
 ?>
@@ -16,13 +20,33 @@ if(!isset($_SESSION['agent_username']))
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style>
-table, th, td {
-  border: 20px solid white;
+table{
+   margin-left: auto;
+  margin-right: auto;
+  width: 70%;
   border-collapse: collapse;
 }
-table.center {
-  margin-left: auto; 
-  margin-right: auto;
+
+th{
+ 	background-color: #D6EEEE;
+}
+
+ th, td {
+ 	border-style:solid;
+  border-color: #96D4D4;
+}
+
+.button {
+  background-color: dodgerblue;
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 </style>
 	<link rel="stylesheet" href="css/main.css">
@@ -36,9 +60,9 @@ table.center {
 
 	<div class = "center">
 	<form method="post">
-			<label >Search Case</label>
+			<label >Търси задание</label>
 			<input type="text" name="search">
-			<input type="submit" name="submit">
+			<input type="submit" name="submit" value = "ТЪРСИ">
 			</form>	
 
 			<?php
@@ -51,21 +75,19 @@ table.center {
 		$id_case=$row['id_case'];
 	if($idagent == $row['agent_id'] ){
 		?>
-<table class="centertable">
-		
-		<thead>
-			<tr>
-				<th style="text-align:center; color:dodgerblue;">Case date</th>
-				<th style="text-align:center; color:dodgerblue;">Case number</th>
-				<th style="text-align:center; color:dodgerblue;">Case author</th>
-				<th style="text-align:center; color:dodgerblue;">Case Title</th>
-				<th style="text-align:center; color:dodgerblue;">Case Priority</th>
-				<th style="text-align:center; color:dodgerblue;">Case Status</th>
-				<th style="text-align:center; color:dodgerblue;">Show details</th>
+<table>
+<thead>
+			<tr style="height:50px">
+				<th style="text-align:center;">Дата</th>
+				<th style="text-align:center;">Номер на задание</th>
+				<th style="text-align:center;">Автор на задание</th>
+				<th style="text-align:center;">Заглавие на задание</th>
+				<th style="text-align:center;">Приоритет</th>
+				<th style="text-align:center;">Статус</th>
+				<th style="text-align:center;">Детайли</th>
 			</tr>
-		</thead>
-		<tbody>
-		
+</thead>
+<tbody>
 			<tr>
 				<td style="text-align:center; "><?php echo $row['date_in'] ?></td>
 				<td style="text-align:center; "><?php echo $row['id_case'] ?></td>
@@ -78,15 +100,15 @@ table.center {
 					if($row['case_priority'] == "LOW")
 					{ ?>
 
-						<p style="color:red;">LOW</p>
+						<p style="color:red;">НИСЪК</p>
 
 					<?php } if($row['case_priority'] == "MEDIUM") { ?>
 
-					 <p style="color:orange;">MEDIUM</p>
+					 <p style="color:orange;">СРЕДЕН</p>
 
 					<?php } if($row['case_priority'] == "HIGH"){ ?>
 
-						<p style="color:green;">HIGH</p>
+						<p style="color:green;">ВИСОК</p>
 
 					<?php } ?>
 					
@@ -98,17 +120,20 @@ table.center {
 					if($row['case_status'] == "OPENED")
 					{ ?>
 
-						<p style="color:green;">OPENED</p>
+						<p style="color:green;">ОТВОРЕН</p>
 
 					<?php } else { ?>
 
-					 <p style="color:red;">CLOSED</p>
+					 <p style="color:red;">ЗАТВОРЕН</p>
 					<?php } ?>
 					
 				</td>
-				<td style="text-align:center; "><a href="showdetails.php?id=<?php echo $row['id_case']; ?>">Show</a></td>
-			</tr>				 
-		</tbody>
+				<td style="text-align:center; ">
+					
+					<a  href="showdetails.php?id=<?php echo $row['id_case']; ?>">ПОКАЖИ</a>
+				</td>
+			</tr>			
+			</tbody>	 
 	</table>
 	<?php } } }?>
 		</div>
@@ -116,19 +141,19 @@ table.center {
 		<?php
 
 				if (!isset($_POST["search"])) { ?>
-	<table class="centertable">
+	<table>
 		<div class="alert alert-success">
-			<h2 style="text-align:center; ">List of cases</h2>
+			<h2 style="text-align:center; ">СПИСЪК ЗАДАНИЯ</h2>
 		</div>
 		<thead>
-			<tr>
-				<th style="text-align:center; color:dodgerblue;">Case date</th>
-				<th style="text-align:center; color:dodgerblue;">Case number</th>
-				<th style="text-align:center; color:dodgerblue;">Case author</th>
-				<th style="text-align:center; color:dodgerblue;">Case Title</th>
-				<th style="text-align:center; color:dodgerblue;">Case Priority</th>
-				<th style="text-align:center; color:dodgerblue;">Case Status</th>
-				<th style="text-align:center; color:dodgerblue;">Show details</th>
+			<tr style="height:50px">
+				<th style="text-align:center;">Дата</th>
+				<th style="text-align:center;">Номер на задание</th>
+				<th style="text-align:center;">Автор на задание</th>
+				<th style="text-align:center;">Заглавие на задание</th>
+				<th style="text-align:center;">Приоритет</th>
+				<th style="text-align:center;">Статус</th>
+				<th style="text-align:center;">Детайли</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -139,7 +164,8 @@ table.center {
 		while($row=mysqli_fetch_array($query)){
 		if($idagent == $row['agent_id'] ){
 		?>
-			<tr>
+			<tr class="clickable "
+		   onclick="window.location='showdetails.php?id=<?php echo $row['id_case']; ?>'">
 				<td style="text-align:center; "><?php echo $row['date_in'] ?></td>
 				<td style="text-align:center; "><?php echo $row['id_case'] ?></td>
 				<td style="text-align:center; "><?php echo $row['case_author'] ?></td>
@@ -150,11 +176,11 @@ table.center {
 
 					if($row['case_priority'] == "LOW")
 					{ ?>
-						<p style="color:red;">LOW</p>
+						<p style="color:red;">НИСЪК</p>
 					<?php } if($row['case_priority'] == "MEDIUM") { ?>
-					 <p style="color:orange;">MEDIUM</p>
+					 <p style="color:orange;">СРЕДЕН</p>
 					<?php } if($row['case_priority'] == "HIGH"){ ?>
-						<p style="color:green;">HIGH</p>
+						<p style="color:green;">ВИСОК</p>
 					<?php } ?>
 					
 				</td>
@@ -165,15 +191,15 @@ table.center {
 					if($row['case_status'] == "OPENED")
 					{ ?>
 
-						<p style="color:green;">OPENED</p>
+						<p style="color:green;">ОТВОРЕН</p>
 
 					<?php } else { ?>
 
-					 <p style="color:red;">CLOSED</p>
+					 <p style="color:red;">ЗАТВОРЕН</p>
 					<?php } ?>
 					
 				</td>
-				<td style="text-align:center; "><a href="showdetails.php?id=<?php echo $row['id_case']; ?>">Show</a></td>			
+				<td style="text-align:center; "><a  href="showdetails.php?id=<?php echo $row['id_case']; ?>">ПОКАЖИ</a></td>			
 		<?php  }  ?>
 	
 		</tr>				 
@@ -181,10 +207,6 @@ table.center {
 		<?php } } ?>
 	</table>
 
-
 </body>
 <br>
-	<?php
-		include ('view/footer.php');	
-	?>
 </html>

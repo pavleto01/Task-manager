@@ -14,14 +14,32 @@ if($perm != 1)
 
 if(!isset($_SESSION['agent_username']))
 {
-  header("Location: login.php");
+  ?>
+  		<script type="text/javascript">
+    		window.location.href = "login.php";
+			</script>
+<?php 
   exit;
 }
 ?>
 
 <!DOCTYPE html>
 <html>
-
+<style>
+	.button {
+  background-color: dodgerblue;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
+<body>
 
 <br>
 
@@ -36,12 +54,12 @@ $result = mysqli_query($conn, $sql);
 while($row = mysqli_fetch_array($result))
 { ?>
 	<section class = "container" grey-text>
-	<table class = "centertable">
+	<table class = "centertable2">
 
 					<form class="white">
 		
 		<tr>
-			<th style=" color:dodgerblue;"> Username:
+			<th style=" color:dodgerblue;"> Потребителско име:
   					<br>
 		<input name="id_agent[]" type="hidden" value="<?php echo  $row['id_agent'] ?>" />
 			<input name="agent_username[]" type="text" style="font-weight:bold;" value="<?php echo $row['agent_username'] ?>" />
@@ -49,7 +67,7 @@ while($row = mysqli_fetch_array($result))
 	</tr>
 		
 		<tr>
-  					<th style=" color:dodgerblue;"> Password:
+  					<th style=" color:dodgerblue;"> Парола:
   					<br>
 		
 			<input name="agent_password[]" type="text" style=" font-weight:bold;" value="<?php echo $row['agent_password'] ?>" />
@@ -57,21 +75,21 @@ while($row = mysqli_fetch_array($result))
 	</tr>
 			
 		<tr>
-  					<th style=" color:dodgerblue;"> Name:
+  					<th style=" color:dodgerblue;"> Име и фамилия:
   					<br>
 			<input name="agent_name[]" type="text" style=" font-weight:bold;" value="<?php echo $row['agent_name'] ?>" />
 		</th>
 	</tr>
 
 		<tr>
-  					<th style=" color:dodgerblue;"> Email:
+  					<th style=" color:dodgerblue;"> Имейл:
   					<br>
 			<input name="agent_email[]" type="text" style=" font-weight:bold;" value="<?php echo $row['agent_email'] ?>" />
 		</th>
 	</tr>
 
 		<tr>
-  					<th style=" color:dodgerblue;"> Permission:
+  					<th style=" color:dodgerblue;"> Достъп:
   					<br>
 			<select name="perm[]" class="form-control">
       						<?php
@@ -86,8 +104,7 @@ while($row = mysqli_fetch_array($result))
 		</th>
 	</tr>
 
-			<tr><th><br><input type="submit" name="update" value="Update"></th></tr>
-
+			<tr><th><br><input type="submit" class="button" name="update" value="ОБНОВИ"></th></tr>
 </table>
 
 	<br />	
@@ -97,9 +114,12 @@ while($row = mysqli_fetch_array($result))
 ?>
 
 </form>
-
-	<?php
-		include ('view/footer.php');
-	?>
-
+	<br>
+<div class="center">
+    <form action="admin.php">
+        <input class="button" type="submit" name="return" value="НАЗАД">
+    </form>
+</div>
+<br><br><br>
+</body>
 </html>

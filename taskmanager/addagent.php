@@ -12,7 +12,11 @@ if($perm != 1)
 
 if(!isset($_SESSION['agent_username']))
 {
-  header("Location: login.php");
+	  ?>
+  <script type="text/javascript">
+    window.location.href = "login.php";
+</script>
+<?php
   exit;
 }
 			
@@ -64,7 +68,7 @@ if(isset($_POST['submit'])){
 
 	
 	if(array_filter($errors)){
-			//echo 'errors in the form';
+			
 		} else{
 
 			$agent_name  = mysqli_real_escape_string($conn, $_POST['agent_name']);
@@ -79,7 +83,11 @@ if(isset($_POST['submit'])){
 
 			if(mysqli_query($conn, $sql)){
 				//success
-				header('Location: index.php');
+				  ?>
+  	<script type="text/javascript">
+   	 window.location.href = "index.php";
+		</script>
+<?php
 			} else {
 				echo 'query error: '. mysqli_error($conn);
 			}
@@ -92,29 +100,24 @@ if(isset($_POST['submit'])){
 
 <!DOCTYPE html>
 <html>
-
 	<head>
-		
-
 		<section class = "container" grey-text>
 			
-
-				
-					<table class="centertable">
+					<table class="centertable2">
 						<div class="alert alert-success">
-							<h2 style="text-align:center; ">Add agent</h2>
+							<h2 style="text-align:center; ">Добави работник</h2>
 						</div>
 						<thead>
 							<form class="white" action="<?php echo $_SERVER[ 'PHP_SELF'] ?>" method="POST">
 					<tr>
-  					<th style=" color:dodgerblue;"> Agent name:
+  					<th> Име и фамилия:
   					<br>
   					<input type = "text" name = "agent_name" value = "<?php echo htmlspecialchars($agent_name) ?>">
   					<div class = "red-text"> <?php echo $errors['agent_name']; ?> </div>
   					</th>
   					</tr>
   					<tr>
-  					<th style=" color:dodgerblue;"> Agent username: 
+  					<th> Потребителско име: 
   						<br>
   					<input type = "text" name = "agent_username" rows="5" cols="50" value = "<?php echo htmlspecialchars($agent_username) ?>">
   					<div class = "red-text"> <?php echo $errors['agent_username']; ?> </div>
@@ -122,7 +125,7 @@ if(isset($_POST['submit'])){
   					</tr>
 
   					<tr>
-  					<th style=" color:dodgerblue;"> Agent password:
+  					<th> Парола:
   					<br>
   					<input type = "password" name = "agent_password" value = "<?php echo htmlspecialchars($agent_password) ?>">
   					<div class = "red-text"> <?php echo $errors['agent_password']; ?> </div>
@@ -130,7 +133,7 @@ if(isset($_POST['submit'])){
   					</tr>
 
   					<tr>
-  					<th style=" color:dodgerblue;"> Agent email:
+  					<th> Имейл:
   					<br>
   					<input type = "text" name = "agent_email" value = "<?php echo htmlspecialchars($agent_email) ?>">
   					<div class = "red-text"> <?php echo $errors['agent_email']; ?> </div>
@@ -139,7 +142,7 @@ if(isset($_POST['submit'])){
 
 					
   					<tr>
-  						<th style=" color:dodgerblue;"> Permission
+  						<th> Достъп:
   							<br>
   							<div class="form-group">
 					<br>
@@ -157,7 +160,7 @@ if(isset($_POST['submit'])){
   					<tr>
   						<th>
    					<div class="center">
-  						<input type="submit" name="submit" value = "ADD" class = "btn brand z-deth-0">
+  						<input type="submit" name="submit" value = "ДОБАВИ" class = "btn brand z-deth-0">
 					</div>
 				</th>
 				</tr>
@@ -167,9 +170,6 @@ if(isset($_POST['submit'])){
 				
 		</section>
 
-	<?php
-		include ('view/footer.php');
-	?>
 </head>
 </html>
 

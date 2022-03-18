@@ -2,7 +2,11 @@
 
 session_start();
 session_destroy();
-header('Location: login.php');
+?>
+  		<script type="text/javascript">
+    		window.location.href = "login.php";
+			</script>
+<?php
 exit;
 
 ?>

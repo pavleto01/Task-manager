@@ -1,8 +1,8 @@
 <?php
 
-error_reporting(0);
+  error_reporting(E_ALL ^ E_WARNING);
 	session_start();
-date_default_timezone_set("Europe/Sofia");
+  date_default_timezone_set("Europe/Sofia");
 	if($_SERVER['QUERY_STRING'] == 'noname'){
 
 		session_unset();
@@ -23,10 +23,9 @@ date_default_timezone_set("Europe/Sofia");
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-
-
 
 * {box-sizing: border-box;}
 
@@ -82,6 +81,15 @@ text-align: center;
   margin-left: auto;
   margin-right: auto;
   width: 70%;
+  border:2px dodgerblue solid;
+  border-collapse: collapse;
+}
+
+.centertable2 {
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+ 
 }
 
 .centerfooter {
@@ -109,15 +117,22 @@ text-align: center;
   <a href="index.php">Task Manager</a>
 </div>
   <div class="header-right">
-    Hello <?php echo htmlspecialchars($name); ?>
-    <a class="active" href="index.php">Home</a>
+    <?php echo htmlspecialchars($name); ?>
+    <a class="active" href="index.php">Начало</a>
     <?php if($perm == 1) {?>
-    <a href="admin.php">Admin</a>
-    <a href="addagent.php">Add agent</a>
+    <a href="admin.php">Админ</a>
+    <a href="addagent.php">Добави нов работник</a>
     <?php } ?>
-    <a href="addcase.php">Add case</a>
-    <a href="login.php">Login</a>
-    <a href="logout.php">Logout</a>
+    <a href="addcase.php">Добави ново задание</a>
+    <?php 
+
+    if(!isset($_SESSION['agent_username']))
+  {
+     ?>
+    <a href="login.php">ВХОД</a>
+  <?php } else { ?>
+    <a href="logout.php">ИЗХОД</a>
+  <?php } ?>
 
   </div>
 </div>

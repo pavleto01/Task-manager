@@ -1,6 +1,6 @@
 <?php
 
-	include ('config/db_connect.php');
+include ('config/db_connect.php');
 include ('view/header.php');
 
 
@@ -9,16 +9,12 @@ include ('view/header.php');
 
 	if(isset($_POST['submit'])){
 
-
-
-		//check username
 		if(empty($_POST['agent_username'])){
 			$errors['agent_username'] = "A username is required <br/>";
 		} else {
 			$agent_username = $_POST['agent_username'];
 		}
 
-		//check password
 		if(empty($_POST['agent_password'])){
 			$errors['agent_password'] = "A password is required <br/>";
 		} else {
@@ -26,27 +22,32 @@ include ('view/header.php');
 		}
 
 		if(array_filter($errors)){
-			//echo 'errors in the form';
+
 		} else{
 
-			//$agent_username = mysqli_real_escape_string($conn, $_POST['agent_username']);
-			//$agent_password = mysqli_real_escape_string($conn, $_POST['agent_password']);
 
 			$query = "SELECT * FROM agents WHERE agent_username = '$agent_username' && agent_password = '$agent_password' ";
-			echo $query;
 			$result = mysqli_query($conn, $query);
 
 			if($row = mysqli_fetch_array($result)){
-				//success
+
 				session_start();
 				$_SESSION['agent_username'] = $_POST['agent_username'];
 				$_SESSION['agent_email'] = $row['agent_email'];
 				$_SESSION['agent_name'] = $row['agent_name'];
 				$_SESSION['id_agent'] = $row['id_agent'];
 				$_SESSION['perm'] = $row['perm'];
-				header('Location: index.php');
+				?>
+  			<script type="text/javascript">
+    			window.location.href = "index.php";
+			</script>
+		<?php
 			} else {
-				header('Location: login.php');
+				?>
+  		<script type="text/javascript">
+    		window.location.href = "login.php";
+			</script>
+		<?php
 		}
 	}
 		}
@@ -65,15 +66,16 @@ include ('view/header.php');
 </head>
 <body>
 	<section class = "container" grey-text>
-	<table class = "centertable">
+	<table class = "centertable2">
 		<div class="alert alert-success">
-							<h2 style="text-align:center; ">LOG IN</h2>
+							<h2 style="text-align:center; ">ВХОД</h2>
 		<thead>
 			<div class="container">
     				<div class="col-md-6">
         				<form class="white" action="<?php echo $_SERVER[ 'PHP_SELF'] ?>" method="POST">
         					<tr>
-  					<th style=" color:dodgerblue;"> Username:
+
+  					<th style=" color:dodgerblue;"> Потребителско име:
   					<br>
   					<input type = "text" name = "agent_username" value = "<?php echo htmlspecialchars($agent_username) ?>">
   					<div class = "red-text"> <?php echo $errors['agent_username']; ?> </div>
@@ -81,7 +83,7 @@ include ('view/header.php');
   			</tr>
 
   					<tr>
-  					<th style=" color:dodgerblue;"> Password:
+  					<th style=" color:dodgerblue;"> Парола:
   					<br>
   					
   					<input type = "password" name = "agent_password" value = "<?php echo htmlspecialchars($agent_password) ?>">
@@ -91,17 +93,20 @@ include ('view/header.php');
 
   				<tr><th>
   					<div class="center">
-  						<input type="submit" name="submit" value = "LOG IN" class = "btn brand z-deth-0">
+  						<input type="submit" name="submit" value = "ВХОД" class = "btn brand z-deth-0">
+    				<br>
+
+    				<br>
+
 					</div>
 				</th></tr>
 				</form>
     				</div>
     			</div>
+
     		</thead>
     	</table>
 	</section>
 </body>
-<?php
-		include ('view/footer.php');	
-	?>
+
 </html>

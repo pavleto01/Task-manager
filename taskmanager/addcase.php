@@ -3,7 +3,11 @@ include('config/db_connect.php');
 include ('view/header.php');
 if(!isset($_SESSION['agent_username']))
 {
-  header("Location: login.php");
+  ?>
+  <script type="text/javascript">
+    window.location.href = "login.php";
+</script>
+<?php
   exit;
 }
 
@@ -46,7 +50,7 @@ if(isset($_POST['submit'])){
 	$agent_name = $_SESSION['agent_name'];
 
 	if(array_filter($errors)){
-			//echo 'errors in the form';
+			
 		} if($perm == 1){
 
 			$case_author = mysqli_real_escape_string($conn, $_POST['agent_name']);
@@ -68,7 +72,12 @@ if(isset($_POST['submit'])){
 			if(mysqli_query($conn, $sql1)){
 				$id = mysqli_insert_id($conn);
 				if(mysqli_query($conn, $sql2) & mysqli_query($conn, $sql3)){
-			header('Location: showdetails.php?id='.$id);}
+					  ?>
+  		<script type="text/javascript">
+    		window.location.href = "showdetails.php?id=<?php echo $id  ?>";
+			</script>
+<?php }
+			
 			} else {
 				echo 'query error: '. mysqli_error($conn);
 			}
@@ -98,7 +107,11 @@ if(isset($_POST['submit'])){
 			if(mysqli_query($conn, $sql1)){
 				$id = mysqli_insert_id($conn);
 				if(mysqli_query($conn, $sql2) & mysqli_query($conn, $sql3) & mysqli_query($conn, $sql4)){
-			header('Location: showdetails.php?id='.$id);}
+			?>
+  		<script type="text/javascript">
+    		window.location.href = "showdetails.php?id=<?php echo $id  ?>";
+			</script>
+		<?php }
 			} else {
 				echo 'query error: '. mysqli_error($conn);
 			}
@@ -118,43 +131,40 @@ if(isset($_POST['submit'])){
 			
 
 				
-					<table class="centertable">
+					<table class="centertable2">
 						<div class="alert alert-success">
-							<h2 style="text-align:center; ">Add case</h2>
+							<h2 style="text-align:center; ">Добави задание</h2>
 						</div>
 						<thead>
 							<form class="white" action="<?php echo $_SERVER[ 'PHP_SELF'] ?>" method="POST">
 					<tr>
-  					<th style=" color:dodgerblue;"> Case title:
+  					<th> Заглавие на задание:
   					<br>
   					<input type = "text" name = "case_title" value = "<?php echo htmlspecialchars($case_title) ?>">
   					<div class = "red-text"> <?php echo $errors['case_title']; ?> </div>
   					</th>
   					</tr>
   					<tr>
-  					<th style=" color:dodgerblue;"> Case description: 
+  					<th> Описание: 
   						<br>
-  					<textarea name = "case_description" rows="5" cols="50" value = "<?php echo htmlspecialchars($case_description) ?>"></textarea>
+  					<textarea name = "case_description" rows="5" cols="50" value = "<?php echo htmlspecialchars($case_description) ?>"><?php echo date("Y/m/d H:i:s");echo " - "; echo $name; echo ": ";?></textarea>
   					<div class = "red-text"> <?php echo $errors['case_description']; ?> </div>
   					</th>
   					</tr>
 
 						<tr>
-  					<th style=" color:dodgerblue;"> Case Priority:
+  					<th> Приоритет:
   					<br>
   					<div class="from-group">
   					<select name="case_priority" class="form-control">
-      					<option value ="MEDIUM">MEDIUM</option>
-      					<option value ="HIGH">HIGH</option>
-      					<option value ="LOW">LOW</option>
+      					<option value ="MEDIUM">СРЕДЕН</option>
+      					<option value ="HIGH">ВИСОК</option>
+      					<option value ="LOW">НИСЪК</option>
       				
    							</select>
    						</div>
   					</th>
   					</tr>
-
-  					
-
 
   					<tr>
   						<th>
@@ -170,7 +180,7 @@ if(isset($_POST['submit'])){
   					<tr>
   						<th>
    					<div class="center">
-  						<input type="submit" name="submit" value = "ADD" class = "btn brand z-deth-0">
+  						<input type="submit" name="submit" value = "ДОБАВИ" class = "btn brand z-deth-0">
 					</div>
 				</th>
 				</tr>
@@ -180,9 +190,7 @@ if(isset($_POST['submit'])){
 				
 		</section>
 
-	<?php
-		include ('view/footer.php');
-	?>
+
 </head>
 </html>
 

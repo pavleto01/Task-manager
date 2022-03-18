@@ -14,6 +14,8 @@ for($i=0; $i < $N; $i++)
 	$result = mysqli_query($conn, $sql);
 
 }
-header("location: admin.php");
-
 ?>
+  		<script type="text/javascript">
+    		window.location.href = "admin.php";
+			</script>
+
